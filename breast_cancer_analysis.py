@@ -6,8 +6,8 @@ Breast Cancer Detection using Machine Learning
 This script implements breast cancer detection using Decision Tree and Logistic Regression
 algorithms. It compares the performance of both models on the same dataset.
 
-Author: [Your Name]
-Date: 2024
+Author: Waqar Fazal (www.waqarfazal.com)
+Date: 2023
 """
 
 import pandas as pd

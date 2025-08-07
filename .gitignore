@@ -151,3 +151,6 @@ Desktop.ini
 # Temporary files
 *.tmp
 *.temp
+
+# Setup guides (not needed in repository)
+GITHUB_SETUP_GUIDE.md
