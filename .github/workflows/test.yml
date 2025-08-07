@@ -1,0 +1,47 @@
+name: Test Breast Cancer Detection
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, "3.10"]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run analysis script
+      run: |
+        python breast_cancer_analysis.py
+    
+    - name: Check if output files exist
+      run: |
+        ls -la
+        if [ -f "confusion_matrices.png" ]; then
+          echo "✅ Confusion matrices plot generated successfully"
+        else
+          echo "❌ Confusion matrices plot not generated"
+          exit 1
+        fi
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: confusion-matrices-${{ matrix.python-version }}
+        path: confusion_matrices.png
